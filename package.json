@@ -1,6 +1,6 @@
 {
   "name": "@spriteful/lazy-video",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "html5 video tag wrapper that auto lazy-loads based on viewport visibility",
   "main": "lazy-video.js",
   "scripts": {
