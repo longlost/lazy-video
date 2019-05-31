@@ -1,5 +1,5 @@
 /**
- * `lazy-vidwo`
+ * `lazy-video`
  * 
  *  auto lazy-loads, loads when no longer below the fold
  *  html5 video wrapper
@@ -12,7 +12,8 @@ import {
 }                 from '@spriteful/spriteful-element/spriteful-element.js';
 import {
   isOnScreen, 
-  listen
+  listen,
+  schedule
 }                 from '@spriteful/utils/utils.js';
 import htmlString from './lazy-video.html';
 import '@spriteful/app-spinner/app-spinner.js';
@@ -84,6 +85,8 @@ class SpritefulLazyVideo extends SpritefulElement {
 
 
   async __metadataLoaded() {
+    this.fire('metadata-loaded', {src: this.src});
+    await schedule();
     this.$.spinner.hide();
     if (!this.presentation) { return; }
     this.__autoPlayWhenVisible();
