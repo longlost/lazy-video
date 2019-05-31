@@ -1,6 +1,6 @@
 {
   "name": "@spriteful/lazy-video",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "html5 video tag wrapper that auto lazy-loads based on viewport visibility",
   "main": "lazy-video.js",
   "scripts": {
@@ -17,17 +17,17 @@
   },
   "homepage": "https://github.com/spriteful/lazy-video#readme",
   "dependencies": {
-    "@polymer/polymer": "^3.1.0",
+    "@polymer/polymer": "^3.2.0",
     "@spriteful/app-spinner": "^1.0.0",
     "@spriteful/spriteful-element": "^1.0.4",
-    "@spriteful/utils": "^1.1.6"
+    "@spriteful/utils": "^1.2.4"
   },
   "devDependencies": {
-    "@polymer/iron-demo-helpers": "^3.0.2",
+    "@polymer/iron-demo-helpers": "^3.1.0",
     "@polymer/test-fixture": "^4.0.2",
-    "@webcomponents/webcomponentsjs": "^2.2.7",
+    "@webcomponents/webcomponentsjs": "^2.2.10",
     "chai": "^4.2.0",
-    "mocha": "^5.2.0",
+    "mocha": "^6.1.4",
     "wct-mocha": "^1.0.0"
   }
 }
