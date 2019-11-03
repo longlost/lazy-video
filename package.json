@@ -1,5 +1,5 @@
 {
-  "name": "@spriteful/lazy-video",
+  "name": "@longlost/lazy-video",
   "version": "1.0.2",
   "description": "html5 video tag wrapper that auto lazy-loads based on viewport visibility",
   "main": "lazy-video.js",
@@ -8,26 +8,26 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/spriteful/lazy-video.git"
+    "url": "git+https://github.com/longlost/lazy-video.git"
   },
-  "author": "Spriteful spritefuldev@gmail.com",
+  "author": "Longlost Dev longlostdev@gmail.com",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/spriteful/lazy-video/issues"
+    "url": "https://github.com/longlost/lazy-video/issues"
   },
-  "homepage": "https://github.com/spriteful/lazy-video#readme",
+  "homepage": "https://github.com/longlost/lazy-video#readme",
   "dependencies": {
-    "@polymer/polymer": "^3.2.0",
-    "@spriteful/app-spinner": "^1.0.0",
-    "@spriteful/spriteful-element": "^1.0.4",
-    "@spriteful/utils": "^1.2.4"
+    "@longlost/app-element": "^1.0.4",
+    "@longlost/app-spinner": "^1.0.0",
+    "@longlost/utils": "^1.2.4",
+    "@polymer/polymer": "^3.3.0"
   },
   "devDependencies": {
     "@polymer/iron-demo-helpers": "^3.1.0",
     "@polymer/test-fixture": "^4.0.2",
-    "@webcomponents/webcomponentsjs": "^2.2.10",
+    "@webcomponents/webcomponentsjs": "^2.3.0",
     "chai": "^4.2.0",
-    "mocha": "^6.1.4",
-    "wct-mocha": "^1.0.0"
+    "mocha": "^6.2.2",
+    "wct-mocha": "^1.0.1"
   }
 }

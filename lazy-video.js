@@ -7,19 +7,19 @@
  * 
  */
 import {
-  SpritefulElement, 
+  AppElement, 
   html
-}                 from '@spriteful/spriteful-element/spriteful-element.js';
+}                 from '@longlost/app-element/app-element.js';
 import {
   isOnScreen, 
   listen,
   schedule
-}                 from '@spriteful/utils/utils.js';
+}                 from '@longlost/utils/utils.js';
 import htmlString from './lazy-video.html';
-import '@spriteful/app-spinner/app-spinner.js';
+import '@longlost/app-spinner/app-spinner.js';
 
 
-class SpritefulLazyVideo extends SpritefulElement {
+class LazyVideo extends AppElement {
   static get is() { return 'lazy-video'; }
 
   static get template() {
@@ -94,4 +94,4 @@ class SpritefulLazyVideo extends SpritefulElement {
 
 }
 
-window.customElements.define(SpritefulLazyVideo.is, SpritefulLazyVideo);
+window.customElements.define(LazyVideo.is, LazyVideo);
