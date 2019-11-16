@@ -26,7 +26,8 @@
 </style>
 
 
-<template is="dom-if" if="[[!presentation]]">
+<template is="dom-if" 
+					if="[[!presentation]]">
 	<video controls
 				 poster="[[poster]]"
 				 preload="metadata" 
@@ -36,7 +37,8 @@
 	</video>
 </template>
 
-<template is="dom-if" if="[[presentation]]">
+<template is="dom-if" 
+					if="[[presentation]]">
 	<video autoplay 
 				 loop
 				 muted
