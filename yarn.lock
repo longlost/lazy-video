@@ -45,10 +45,10 @@
   dependencies:
     "@longlost/lambda" "^1.3.9"
 
-"@longlost/utils@^1.3.3":
-  version "1.3.3"
-  resolved "https://registry.yarnpkg.com/@longlost/utils/-/utils-1.3.3.tgz#8c46ee9f817ef97e287a3c2913da2bcaba25f229"
-  integrity sha512-PLs4MNWlzK/4ALFS4ywaRvrw4eL1xPxS0PLPO9Mr7PuNtpziaLMlMgper/t9KLLFDBXgWP6lqAu8jZrZCFfHzg==
+"@longlost/utils@^1.3.5":
+  version "1.3.5"
+  resolved "https://registry.yarnpkg.com/@longlost/utils/-/utils-1.3.5.tgz#400f36c28acf4f63039fb3b400ffc9db52a0caca"
+  integrity sha512-Eh2MNzsn/0QgR2OkHGmQpPhFpn1UfoQyIjTSdTyzqr3AqcuGQV7pspnG7FBcm5Ina1Uf3rPz6zeX6sXHkuwiKA==
   dependencies:
     "@longlost/lambda" "^2.0.0"
 
