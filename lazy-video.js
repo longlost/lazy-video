@@ -14,6 +14,7 @@ import {
   html
 }                 from '@longlost/app-element/app-element.js';
 import {
+  consumeEvent,
   isOnScreen, 
   schedule
 }                 from '@longlost/utils/utils.js';
@@ -31,6 +32,12 @@ class LazyVideo extends AppElement {
 
   static get properties() {
     return {
+      // Sets the proportion of width to height.
+      // 'classic', 'landscape', 'portrait' or 'square'
+      aspectRatio: {
+        type: String,
+        value: 'landscape'
+      },
       // Placeholder image url. 
       // Optional.
       poster: String, 
@@ -134,8 +141,9 @@ class LazyVideo extends AppElement {
   }
 
 
-  async __metadataLoaded() {
-    this.fire('metadata-loaded', {src: this.src});
+  async __metadataLoaded(event) {
+    consumeEvent(event);
+    this.fire('lazy-video-metadata-loaded', {src: this.src});
     await schedule();
     this.$.spinner.hide();
     if (this.presentation) {

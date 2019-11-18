@@ -2,21 +2,47 @@
 <style>
 
 	:host {
-		display:  				inline-block;
-		position:  				relative;
-		width: 	  				100%;
-		overflow: 				hidden;
+		display:  block;
+		position: relative; /* For <app-spinner> */
+		overflow: hidden;
 		background-color: var(--video-background-color, var(--app-background-color));
+	}
+
+	/*
+		We use a css padding trick here.
+		Padding set to a percentage is 
+		measured from the element's width.
+	*/
+
+	#container {
+		display:  block;
+		position: relative; /* For <video> */
+    height: 	0px; 			/* Here, padding-top sets the height */
+		width: 	  100%;
+	}
+
+	.classic {
+		padding-top: 75%; /* 4:3 aspect ratio. */
+	}
+
+	.landscape {
+		padding-top: 56.25%; /* 16:9 aspect ratio. */
+	}
+
+	.portrait {
+		padding-top: 177.77%; /* 9:16 aspect ratio. */
+	}
+
+	.square {
+		padding-top: 100%; /* 1:1 aspect ratio. */
 	}
 	
 	video {
-		display: 		block;
-		height:  		inherit;
-		min-height: inherit;
-		max-height: inherit;
-		width: 	 		inherit;
-		min-width: 	inherit;
-		max-width: 	inherit;
+		width: 		100%;
+    height: 	100%;
+    position: absolute;
+    top: 			0px;
+    left: 		0px;
 	}
 
 	#spinner {
@@ -26,28 +52,33 @@
 </style>
 
 
-<template is="dom-if" 
-					if="[[!presentation]]">
-	<video controls
-				 poster="[[poster]]"
-				 preload="metadata" 
-				 src="[[_lazySrc]]"
-				 on-loadedmetadata="__metadataLoaded">
-		Your browser does not support the video tag.
-	</video>
-</template>
+<div id="container"
+		 class$="landscape [[aspectRatio]]">
 
-<template is="dom-if" 
-					if="[[presentation]]">
-	<video autoplay 
-				 loop
-				 muted
-				 playsinline
-				 poster="[[poster]]"
-				 src="[[_lazySrc]]"
-				 on-loadedmetadata="__metadataLoaded">
-		Your browser does not support the video tag.
-	</video>
-</template>
+	<template is="dom-if" 
+						if="[[!presentation]]">
+		<video controls
+					 poster="[[poster]]"
+					 preload="metadata" 
+					 src="[[_lazySrc]]"
+					 on-loadedmetadata="__metadataLoaded">
+			Your browser does not support the video tag.
+		</video>
+	</template>
+
+	<template is="dom-if" 
+						if="[[presentation]]">
+		<video autoplay 
+					 loop
+					 muted
+					 playsinline
+					 poster="[[poster]]"
+					 src="[[_lazySrc]]"
+					 on-loadedmetadata="__metadataLoaded">
+			Your browser does not support the video tag.
+		</video>
+	</template>
+
+</div>
 
 <app-spinner id="spinner"></app-spinner>
