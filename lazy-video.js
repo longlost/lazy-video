@@ -69,7 +69,12 @@ class LazyVideo extends AppElement {
       // Used to unobserve and cleanup when not needed.
       _intersectionObserver: Object,
       // Set after element comes into view on screen.
-      _lazySrc: String
+      _lazySrc: String,
+      // True when <template is="dom-if"> is done stamping.
+      _stamped: {
+        type: Boolean,
+        value: false
+      }
 
     };
   }
@@ -78,7 +83,7 @@ class LazyVideo extends AppElement {
   static get observers() {
     return [
       '__presentationChanged(presentation)',
-      '__srcChanged(src, trigger)'
+      '__srcChanged(src, trigger, _stamped)'
     ];
   }
 
@@ -88,9 +93,9 @@ class LazyVideo extends AppElement {
   }
 
 
-  async __srcChanged(src, trigger) {
+  async __srcChanged(src, trigger, stamped) {
     try {
-      if (!src) { return; }
+      if (!src || !stamped) { return; }
 
       await isOnScreen(this, trigger);
       await this.$.spinner.show();
@@ -107,6 +112,12 @@ class LazyVideo extends AppElement {
     if (!presentation) {
       this.__unobserve();
     }
+  }
+
+
+  __onDomChange() {
+    const videoEl = this.select('video');
+    this._stamped = videoEl ? true : false;
   }
 
 
@@ -145,7 +156,8 @@ class LazyVideo extends AppElement {
     consumeEvent(event);
     this.fire('lazy-video-metadata-loaded', {src: this.src});
     await schedule();
-    this.$.spinner.hide();
+    await this.$.spinner.hide();
+
     if (this.presentation) {
       this.__autoPlayWhenVisible();
     }

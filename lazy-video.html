@@ -56,7 +56,8 @@
 		 class$="landscape [[aspectRatio]]">
 
 	<template is="dom-if" 
-						if="[[!presentation]]">
+						if="[[!presentation]]"
+						on-dom-change="__onDomChange">
 		<video controls
 					 poster="[[poster]]"
 					 preload="metadata" 
@@ -67,7 +68,8 @@
 	</template>
 
 	<template is="dom-if" 
-						if="[[presentation]]">
+						if="[[presentation]]"
+						on-dom-change="__onDomChange">
 		<video autoplay 
 					 loop
 					 muted
