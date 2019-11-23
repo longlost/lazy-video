@@ -83,7 +83,7 @@ class LazyVideo extends AppElement {
   static get observers() {
     return [
       '__presentationChanged(presentation)',
-      '__srcChanged(src, trigger, _stamped)'
+      '__srcChanged(src, poster, trigger, _stamped)'
     ];
   }
 
@@ -93,13 +93,25 @@ class LazyVideo extends AppElement {
   }
 
 
-  async __srcChanged(src, trigger, stamped) {
+  async __srcChanged(src, poster, trigger, stamped) {
     try {
       if (!src || !stamped) { return; }
 
       await isOnScreen(this, trigger);
       await this.$.spinner.show();
-      this._lazySrc = src;
+
+      if (!poster || poster === '#') {        
+        // Safari Hack!!!
+        // Adding the '#t=0.001' string to the end of the
+        // src url tells the browser to start at the
+        // first frame. This makes Safari show the first
+        // frame as a poster, which is the default
+        // behavior in other browsers.
+        this._lazySrc = `${src}#t=0.001`; // Safari Hack!!!  
+      }
+      else {
+        this._lazySrc = src;
+      } 
     }
     catch (error) {
       if (error === 'Element removed.');
