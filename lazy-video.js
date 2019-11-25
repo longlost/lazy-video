@@ -38,6 +38,8 @@ class LazyVideo extends AppElement {
         type: String,
         value: 'landscape'
       },
+      // Set this to a local blob url for fast initial loading.
+      placeholder: String,
       // Placeholder image url. 
       // Optional.
       poster: String, 
@@ -83,7 +85,7 @@ class LazyVideo extends AppElement {
   static get observers() {
     return [
       '__presentationChanged(presentation)',
-      '__srcChanged(src, poster, trigger, _stamped)'
+      '__placeholderSrcChanged(placeholder, src, poster, trigger, _stamped)'
     ];
   }
 
@@ -93,14 +95,17 @@ class LazyVideo extends AppElement {
   }
 
 
-  async __srcChanged(src, poster, trigger, stamped) {
+  async __placeholderSrcChanged(placeholder, src, poster, trigger, stamped) {
     try {
-      if (!src || !stamped) { return; }
+      if ((!placeholder && !src) || !stamped) { return; }
 
       await isOnScreen(this, trigger);
       await this.$.spinner.show();
 
-      if (!poster || poster === '#') {        
+      if (placeholder && (!src || src === '#')) {
+        this._lazySrc = placeholder;
+      }
+      else if (!poster && src !== '#') {        
         // Safari Hack!!!
         // Adding the '#t=0.001' string to the end of the
         // src url tells the browser to start at the
@@ -110,11 +115,11 @@ class LazyVideo extends AppElement {
         this._lazySrc = `${src}#t=0.001`; // Safari Hack!!!  
       }
       else {
-        this._lazySrc = src;
+        this._lazySrc = src || '#';
       } 
     }
     catch (error) {
-      if (error === 'Element removed.');
+      if (error === 'Element removed.') { return; }
       console.error(error);
     }
   }
