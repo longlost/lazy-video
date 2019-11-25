@@ -5,6 +5,7 @@
 		display:  block;
 		position: relative; /* For <app-spinner> */
 		overflow: hidden;
+    border-radius: 		inherit; /* Another Safari fix. */
 		background-color: var(--video-background-color, var(--app-background-color));
 	}
 
@@ -19,6 +20,8 @@
 		position: relative; /* For <video> */
     height: 	0px; 			/* Here, padding-top sets the height */
 		width: 	  100%;
+		overflow: hidden;
+    border-radius: inherit; /* Another Safari fix. */
 	}
 
 	.classic {
@@ -43,6 +46,8 @@
     position: absolute;
     top: 			0px;
     left: 		0px;
+		overflow: hidden;
+    border-radius: inherit; /* Another Safari fix. */
 	}
 
 	#spinner {
