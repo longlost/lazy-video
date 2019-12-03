@@ -49,6 +49,14 @@
     border-radius: inherit; /* Another Safari fix. */
 	}
 
+	.contain {
+	  object-fit: contain;
+	}
+
+	.cover {
+	  object-fit: cover;
+	}
+
 	#spinner {
 		z-index: 1;
 	}
@@ -62,7 +70,8 @@
 	<template is="dom-if" 
 						if="[[!presentation]]"
 						on-dom-change="__onDomChange">
-		<video controls
+		<video class$="[[sizing]]"
+					 controls
 					 poster="[[poster]]"
 					 preload="metadata" 
 					 src="[[_lazySrc]]"
@@ -74,7 +83,8 @@
 	<template is="dom-if" 
 						if="[[presentation]]"
 						on-dom-change="__onDomChange">
-		<video autoplay 
+		<video class$="[[sizing]]"
+					 autoplay 
 					 loop
 					 muted
 					 playsinline
