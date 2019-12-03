@@ -51,6 +51,11 @@ class LazyVideo extends AppElement {
         type: Boolean,
         value: false
       },
+      // Similar to image sizing.
+      sizing: {
+        type: String,
+        value: 'cover' // Or 'contain'.
+      },
       // Video source url.
       src: String,
       // The distance in pixels to pad
