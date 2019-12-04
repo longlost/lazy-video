@@ -112,12 +112,12 @@ class LazyVideo extends AppElement {
       }
       else if (!poster && src !== '#') {        
         // Safari Hack!!!
-        // Adding the '#t=0.001' string to the end of the
+        // Adding the '#t=0.1' string to the end of the
         // src url tells the browser to start at the
         // first frame. This makes Safari show the first
         // frame as a poster, which is the default
         // behavior in other browsers.
-        this._lazySrc = `${src}#t=0.001`; // Safari Hack!!!  
+        this._lazySrc = `${src}#t=0.1`; // Safari Hack!!!  
       }
       else {
         this._lazySrc = src || '#';
@@ -144,7 +144,6 @@ class LazyVideo extends AppElement {
 
 
   __autoPlayWhenVisible() {
-    let playState = false;
     const video   = this.select('video');
 
     const options = {
@@ -157,13 +156,9 @@ class LazyVideo extends AppElement {
       const {isIntersecting} = entries[0];
 
       if (isIntersecting) {
-        if (playState) { return; }
-        playState = true;
         video.play();
       }
       else {
-        if (!playState) { return; }
-        playState = false;
         video.pause();
       }
     };
@@ -174,15 +169,22 @@ class LazyVideo extends AppElement {
   }
 
 
-  async __metadataLoaded(event) {
+  async __firstFrameLoaded(event) {
     consumeEvent(event);
-    this.fire('lazy-video-metadata-loaded', {src: this.src});
+    this.fire('lazy-video-first-frame-loaded', {src: this.src});
+
     await schedule();
     await this.$.spinner.hide();
 
     if (this.presentation) {
       this.__autoPlayWhenVisible();
     }
+  }
+
+
+  __metadataLoaded(event) {
+    consumeEvent(event);
+    this.fire('lazy-video-metadata-loaded', {src: this.src});    
   }
 
 
