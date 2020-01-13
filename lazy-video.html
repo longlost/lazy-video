@@ -14,7 +14,7 @@
 		measured from the element's width.
 	*/
 
-	#container {
+	.container {
 		display:  block;
 		position: relative; /* For <video> */
     height: 	0px; 			/* Here, padding-top sets the height */
@@ -37,6 +37,11 @@
 
 	.square {
 		padding-top: 100%; /* 1:1 aspect ratio. */
+	}
+
+	.fill {
+		height: 		 100%;
+		padding-top: unset;
 	}
 	
 	video {
@@ -64,8 +69,7 @@
 </style>
 
 
-<div id="container"
-		 class$="landscape [[aspectRatio]]">
+<div class$="container landscape [[aspectRatio]]">
 
 	<template is="dom-if" 
 						if="[[!presentation]]"

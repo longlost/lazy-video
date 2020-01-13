@@ -5,6 +5,11 @@
   *   Auto lazy-loads when visible on screen.
   *   html5 video wrapper.
   * 
+  *
+  * @customElement
+  * @polymer
+  * @demo demo/index.html
+  *
   * 
   **/
 
@@ -32,17 +37,24 @@ class LazyVideo extends AppElement {
 
   static get properties() {
     return {
+
       // Sets the proportion of width to height.
-      // 'classic', 'landscape', 'portrait' or 'square'
+      // 'classic', 'fill', 'landscape', 'portrait' or 'square'
       aspectRatio: {
         type: String,
         value: 'landscape'
       },
+
+      // Sets or removes HTML5 video 'controls' attribute.
+      controls: Boolean,
+
       // Set this to a local blob url for fast initial loading.
       placeholder: String,
+
       // Placeholder image url. 
       // Optional.
       poster: String, 
+
       // When set to true, video will 
       // autoplay with no controls, 
       // on mute and loop continuously.
@@ -51,13 +63,16 @@ class LazyVideo extends AppElement {
         type: Boolean,
         value: false
       },
+
       // Similar to image sizing.
       sizing: {
         type: String,
         value: 'cover' // Or 'contain'.
       },
+
       // Video source url.
       src: String,
+
       // The distance in pixels to pad
       // to the carousel trigger threshold.
       // For instance, 0 would mean that the
@@ -72,16 +87,16 @@ class LazyVideo extends AppElement {
         type: Number,
         value: 0
       },
+
       // Cached IntersectionObserver instance.
       // Used to unobserve and cleanup when not needed.
       _intersectionObserver: Object,
+
       // Set after element comes into view on screen.
       _lazySrc: String,
-      // True when <template is="dom-if"> is done stamping.
-      _stamped: {
-        type: Boolean,
-        value: false
-      }
+
+      // <video> tag ref.
+      _videoEl: Object
 
     };
   }
@@ -89,28 +104,51 @@ class LazyVideo extends AppElement {
 
   static get observers() {
     return [
+      '__controlsChanged(controls, _videoEl)',
       '__presentationChanged(presentation)',
-      '__placeholderSrcChanged(placeholder, src, poster, trigger, _stamped)'
+      '__placeholderSrcChanged(placeholder, src, poster, trigger, _videoEl)'
     ];
   }
 
 
   disconnectedCallback() {
+    super.connectedCallback();
+
     this.__unobserve();
   }
 
 
-  async __placeholderSrcChanged(placeholder, src, poster, trigger, stamped) {
+  __controlsChanged(controls, el) {
+
+    // Noop unless this property is explicitly set by consumer.
+    if (typeof controls !== 'boolean' || !el) { return; }
+
+    if (controls) {
+      el.setAttribute('controls', 'true');
+    }
+    else {
+      el.removeAttribute('controls');
+    }
+  }
+
+
+  async __placeholderSrcChanged(placeholder, src, poster, trigger, el) {
     try {
-      if ((!placeholder && !src) || !stamped) { return; }
+
+      if ((!placeholder && !src) || !el) { 
+        this._lazySrc = '#';
+        return; 
+      }
 
       await isOnScreen(this, trigger);
+
       await this.$.spinner.show();
 
       if (placeholder && (!src || src === '#')) {
         this._lazySrc = placeholder;
       }
-      else if (!poster && src !== '#') {        
+      else if (!poster && src !== '#') {  
+
         // Safari Hack!!!
         // Adding the '#t=0.1' string to the end of the
         // src url tells the browser to start at the
@@ -121,7 +159,7 @@ class LazyVideo extends AppElement {
       }
       else {
         this._lazySrc = src || '#';
-      } 
+      }
     }
     catch (error) {
       if (error === 'Element removed.') { return; }
@@ -138,13 +176,11 @@ class LazyVideo extends AppElement {
 
 
   __onDomChange() {
-    const videoEl = this.select('video');
-    this._stamped = videoEl ? true : false;
+    this._videoEl = this.select('video');
   }
 
 
   __autoPlayWhenVisible() {
-    const video   = this.select('video');
 
     const options = {
       root:        null, // 'null' sets root to device viewport.
@@ -156,10 +192,10 @@ class LazyVideo extends AppElement {
       const {isIntersecting} = entries[0];
 
       if (isIntersecting) {
-        video.play();
+        this._videoEl.play();
       }
       else {
-        video.pause();
+        this._videoEl.pause();
       }
     };
 
@@ -171,6 +207,7 @@ class LazyVideo extends AppElement {
 
   async __firstFrameLoaded(event) {
     consumeEvent(event);
+
     this.fire('lazy-video-first-frame-loaded', {src: this.src});
 
     await schedule();
@@ -184,7 +221,8 @@ class LazyVideo extends AppElement {
 
   __metadataLoaded(event) {
     consumeEvent(event);
-    this.fire('lazy-video-metadata-loaded', {src: this.src});    
+
+    this.fire('lazy-video-metadata-loaded', {src: this.src});
   }
 
 

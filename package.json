@@ -1,6 +1,6 @@
 {
   "name": "@longlost/lazy-video",
-  "version": "2.2.1",
+  "version": "2.3.0",
   "description": "html5 video tag wrapper that auto lazy-loads based on viewport visibility",
   "main": "lazy-video.js",
   "scripts": {
@@ -17,17 +17,17 @@
   },
   "homepage": "https://github.com/longlost/lazy-video#readme",
   "dependencies": {
-    "@longlost/app-element": "^1.0.4",
-    "@longlost/app-spinner": "^1.0.0",
+    "@longlost/app-element": "^1.0.6",
+    "@longlost/app-spinner": "^1.1.0",
     "@longlost/utils": "^1.3.5",
     "@polymer/polymer": "^3.3.1"
   },
   "devDependencies": {
     "@polymer/iron-demo-helpers": "^3.1.0",
     "@polymer/test-fixture": "^4.0.2",
-    "@webcomponents/webcomponentsjs": "^2.4.0",
+    "@webcomponents/webcomponentsjs": "^2.4.1",
     "chai": "^4.2.0",
-    "mocha": "^6.2.2",
+    "mocha": "^7.0.0",
     "wct-mocha": "^1.0.1"
   }
 }
