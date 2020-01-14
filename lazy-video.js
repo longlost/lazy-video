@@ -21,7 +21,8 @@ import {
 import {
   consumeEvent,
   isOnScreen, 
-  schedule
+  schedule,
+  wait
 }                 from '@longlost/utils/utils.js';
 import htmlString from './lazy-video.html';
 import '@longlost/app-spinner/app-spinner.js';
@@ -143,6 +144,9 @@ class LazyVideo extends AppElement {
       await isOnScreen(this, trigger);
 
       await this.$.spinner.show();
+
+      // Smooth out the spinner show/hide timing for fast connections.
+      await wait(300); 
 
       if (placeholder && (!src || src === '#')) {
         this._lazySrc = placeholder;
