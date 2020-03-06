@@ -148,10 +148,15 @@ class LazyVideo extends AppElement {
       // Smooth out the spinner show/hide timing for fast connections.
       await wait(300); 
 
-      if (placeholder && (!src || src === '#')) {
-        this._lazySrc = placeholder;
+      // NOT using closure values here to work
+      // correctly within template repeaters
+      // where data can be changed by the time the 
+      // above schedule and isOnScreen have resolved.
+      
+      if (this.placeholder && (!this.src || this.src === '#')) {
+        this._lazySrc = this.placeholder;
       }
-      else if (!poster && src !== '#') {  
+      else if (!this.poster && this.src !== '#') {  
 
         // Safari Hack!!!
         // Adding the '#t=0.1' string to the end of the
@@ -159,10 +164,10 @@ class LazyVideo extends AppElement {
         // first frame. This makes Safari show the first
         // frame as a poster, which is the default
         // behavior in other browsers.
-        this._lazySrc = `${src}#t=0.1`; // Safari Hack!!!  
+        this._lazySrc = `${this.src}#t=0.1`; // Safari Hack!!!  
       }
       else {
-        this._lazySrc = src || '#';
+        this._lazySrc = this.src || '#';
       }
     }
     catch (error) {

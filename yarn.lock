@@ -2,7 +2,7 @@
 # yarn lockfile v1
 
 
-"@longlost/app-element@^1.0.5", "@longlost/app-element@^1.0.6":
+"@longlost/app-element@^1.0.6":
   version "1.0.6"
   resolved "https://registry.yarnpkg.com/@longlost/app-element/-/app-element-1.0.6.tgz#b3492eea81d87b683821e130b304f49c5ada5bb0"
   integrity sha512-E4oHLGGI5RCvKfrsGizzDEsxI5CeOslYUEKxMrw67tFw+GvrOZM13OV8FbUv41kokQDGhCqeE/QIbJ/vZq7/KQ==
@@ -10,12 +10,20 @@
     "@longlost/element-mixin" "^1.0.9"
     "@polymer/polymer" "^3.3.1"
 
-"@longlost/app-spinner@^1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@longlost/app-spinner/-/app-spinner-1.1.0.tgz#170ad84c15ccafce5a5cd87226960e176076d558"
-  integrity sha512-rbo47IAiJCQlvRq1UBt56zM2g+Mk3monXR1dQYGO3B9h/NsXzYWAswprjPJgsFQEOlvly/FqAZKKXs3JVPjtVQ==
+"@longlost/app-element@^1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@longlost/app-element/-/app-element-1.1.1.tgz#0a6907316ead915abea6df82f1c24f19cca965ab"
+  integrity sha512-4BNTe0jl28c7pJ02hb0dSRqDWbcV+a8q7XailQGgzgOm3bxzI8m5QjAykRDyBbqtor6fs+VmaNyNK91hH0dLwQ==
   dependencies:
-    "@longlost/app-element" "^1.0.5"
+    "@longlost/utils" "^1.3.5"
+    "@polymer/polymer" "^3.3.1"
+
+"@longlost/app-spinner@^1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@longlost/app-spinner/-/app-spinner-1.1.1.tgz#5bdcac193aaa30f21e8e9a3fd2c7a45626798ec0"
+  integrity sha512-tlceyf9jeysx2g6Zqx6eGETS3xi8jbwENgFZSlDl+lkmU6wIFASnfJNmctMbv5L8M26EBSbc7N4kA8cFQlBKmg==
+  dependencies:
+    "@longlost/app-element" "^1.0.6"
     "@longlost/utils" "^1.3.5"
     "@polymer/paper-button" "^3.0.1"
     "@polymer/paper-spinner" "^3.0.2"
@@ -207,10 +215,10 @@
   resolved "https://registry.yarnpkg.com/@webcomponents/shadycss/-/shadycss-1.9.2.tgz#6a3a65951b5a97279dd9b92cc277dd815d0e1fad"
   integrity sha512-GsD7RpDVrVdgC6e+D8zQia8RGNmEGQ9/qotnVPQYPrIXhGS5xSt6ZED9YmuHz3HbLqY+E54tE1EK3tjLzSCGrw==
 
-"@webcomponents/webcomponentsjs@^2.4.1":
-  version "2.4.1"
-  resolved "https://registry.yarnpkg.com/@webcomponents/webcomponentsjs/-/webcomponentsjs-2.4.1.tgz#7baadec56ed2fd79b94ddfd509132d8c0c295c5c"
-  integrity sha512-7jxBb+KoWncKb/JGFyTY40PjV4yRx2zd35ZLuvRP+6WndJDL7X32ZIZ7bN3sSQIl+NzJkCo7chfXJyzn+6WZaQ==
+"@webcomponents/webcomponentsjs@^2.4.2":
+  version "2.4.2"
+  resolved "https://registry.yarnpkg.com/@webcomponents/webcomponentsjs/-/webcomponentsjs-2.4.2.tgz#7a5ba18430c202b13b1cd1c00e7db992ee8e58b5"
+  integrity sha512-3nGTTljmHHwfxBDppjbvUrKAmy78skC6nHwx3mYrbz677HXMAREh0aeJvoT4EnuomYJtLU3lS3RYvtB2MSz+NQ==
 
 ansi-colors@3.2.3:
   version "3.2.3"
@@ -301,7 +309,7 @@ chai@^4.2.0:
     pathval "^1.1.0"
     type-detect "^4.0.5"
 
-chalk@^2.0.1:
+chalk@^2.4.2:
   version "2.4.2"
   resolved "https://registry.yarnpkg.com/chalk/-/chalk-2.4.2.tgz#cd42541677a54333cf541a49108c1432b44c9424"
   integrity sha512-Mti+f9lpJNcwF4tWV8/OrTTtF1gZi+f8FqlyAdouralcFWFQWF2+NgCHShjkCb+IFBLq9buZwE1xckQU4peSuQ==
@@ -633,12 +641,12 @@ lodash@^4.17.15:
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.15.tgz#b447f6670a0455bbfeedd11392eff330ea097548"
   integrity sha512-8xOcRHvCjnocdS5cpwXQXVzmmh5e5+saE2QGoeQmbKmRS6J3VQppPOIt0MnmE+4xlZoumy0GPG0D0MVIQbNA1A==
 
-log-symbols@2.2.0:
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/log-symbols/-/log-symbols-2.2.0.tgz#5740e1c5d6f0dfda4ad9323b5332107ef6b4c40a"
-  integrity sha512-VeIAFslyIerEJLXHziedo2basKbMKtTw3vfn5IzG0XTjhAVEJyNHnL2p7vc+wBDSdQuUpNw3M2u6xb9QsAY5Eg==
+log-symbols@3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/log-symbols/-/log-symbols-3.0.0.tgz#f3a08516a5dea893336a7dee14d18a1cfdab77c4"
+  integrity sha512-dSkNGuI7iG3mfvDzUuYZyvk5dD9ocYCYzNU6CYDE6+Xqd+gwme6Z00NS3dUh8mq/73HaEtT7m6W+yUPtU6BZnQ==
   dependencies:
-    chalk "^2.0.1"
+    chalk "^2.4.2"
 
 marked@~0.3.9:
   version "0.3.19"
@@ -664,10 +672,10 @@ mkdirp@0.5.1:
   dependencies:
     minimist "0.0.8"
 
-mocha@^7.0.0:
-  version "7.0.0"
-  resolved "https://registry.yarnpkg.com/mocha/-/mocha-7.0.0.tgz#c60d14bf3de9601f549b3ff5be657eb8381c54bf"
-  integrity sha512-CirsOPbO3jU86YKjjMzFLcXIb5YiGLUrjrXFHoJ3e2z9vWiaZVCZQ2+gtRGMPWF+nFhN6AWwLM/juzAQ6KRkbA==
+mocha@^7.1.0:
+  version "7.1.0"
+  resolved "https://registry.yarnpkg.com/mocha/-/mocha-7.1.0.tgz#c784f579ad0904d29229ad6cb1e2514e4db7d249"
+  integrity sha512-MymHK8UkU0K15Q/zX7uflZgVoRWiTjy0fXE/QjKts6mowUvGxOdPhZ2qj3b0iZdUrNZlW9LAIMFHB4IW+2b3EQ==
   dependencies:
     ansi-colors "3.2.3"
     browser-stdout "1.3.1"
@@ -680,7 +688,7 @@ mocha@^7.0.0:
     growl "1.10.5"
     he "1.2.0"
     js-yaml "3.13.1"
-    log-symbols "2.2.0"
+    log-symbols "3.0.0"
     minimatch "3.0.4"
     mkdirp "0.5.1"
     ms "2.1.1"
