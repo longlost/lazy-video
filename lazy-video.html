@@ -2,9 +2,11 @@
 <style>
 
 	:host {
-		display:  block;
-		position: relative; /* For <app-spinner> */
-		overflow: hidden;
+		display:  				block;
+		position: 				relative; /* For <app-spinner> */
+		overflow: 				hidden;
+		opacity:  				0;
+		transition: 			opacity 0.2s ease-out;
 		background-color: var(--video-background-color, var(--app-background-color));
 	}
 
