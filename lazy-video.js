@@ -20,7 +20,8 @@ import {
 }                 from '@longlost/app-element/app-element.js';
 import {
   consumeEvent,
-  isOnScreen, 
+  isOnScreen,
+  naturals, 
   schedule,
   wait
 }                 from '@longlost/utils/utils.js';
@@ -148,6 +149,10 @@ class LazyVideo extends AppElement {
       await isOnScreen(this, trigger);
 
       if (!this.poster) {
+
+        // Fade in.
+        this.style['opacity'] = '1';
+
         await this.$.spinner.show();
 
         // Smooth out the spinner show/hide timing for fast connections.
@@ -199,6 +204,13 @@ class LazyVideo extends AppElement {
       // above schedule and isOnScreen have resolved.
 
       this._lazyPoster = this.poster;
+
+      // Wait for poster to load then fade in.
+      // Only using the 'naturals' function for
+      // its image load timing.
+      await naturals(this.poster);
+
+      this.style['opacity'] = '1';
     }
     catch (error) {
       if (error === 'Element removed.') { return; }
