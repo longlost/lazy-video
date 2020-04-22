@@ -94,6 +94,9 @@ class LazyVideo extends AppElement {
       _intersectionObserver: Object,
 
       // Set after element comes into view on screen.
+      _lazyPoster: String,
+
+      // Set after element comes into view on screen.
       _lazySrc: String,
 
       // <video> tag ref.
@@ -107,7 +110,8 @@ class LazyVideo extends AppElement {
     return [
       '__controlsChanged(controls, _videoEl)',
       '__presentationChanged(presentation)',
-      '__placeholderSrcChanged(placeholder, src, poster, trigger, _videoEl)'
+      '__placeholderSrcChanged(placeholder, src, trigger, _videoEl)',
+      '__posterChanged(poster, trigger, _videoEl)'
     ];
   }
 
@@ -133,7 +137,7 @@ class LazyVideo extends AppElement {
   }
 
 
-  async __placeholderSrcChanged(placeholder, src, poster, trigger, el) {
+  async __placeholderSrcChanged(placeholder, src, trigger, el) {
     try {
 
       if ((!placeholder && !src) || !el) { 
@@ -143,10 +147,12 @@ class LazyVideo extends AppElement {
 
       await isOnScreen(this, trigger);
 
-      await this.$.spinner.show();
+      if (!this.poster) {
+        await this.$.spinner.show();
 
-      // Smooth out the spinner show/hide timing for fast connections.
-      await wait(300); 
+        // Smooth out the spinner show/hide timing for fast connections.
+        await wait(300); 
+      }
 
       // NOT using closure values here to work
       // correctly within template repeaters
@@ -169,6 +175,30 @@ class LazyVideo extends AppElement {
       else {
         this._lazySrc = this.src || '#';
       }
+    }
+    catch (error) {
+      if (error === 'Element removed.') { return; }
+      console.error(error);
+    }
+  }
+
+
+  async __posterChanged(poster, trigger, el) {
+    try {
+
+      if (!poster || !el) { 
+        this._lazyPoster = '#';
+        return; 
+      }
+
+      await isOnScreen(this, trigger);
+
+      // NOT using closure values here to work
+      // correctly within template repeaters
+      // where data can be changed by the time the 
+      // above schedule and isOnScreen have resolved.
+
+      this._lazyPoster = this.poster;
     }
     catch (error) {
       if (error === 'Element removed.') { return; }
