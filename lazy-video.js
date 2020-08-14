@@ -193,6 +193,9 @@ class LazyVideo extends AppElement {
 
       if (!poster || !el) { 
         this._lazyPoster = '#';
+
+        this.fire('lazy-video-poster-loaded-changed', {value: false});
+
         return; 
       }
 
@@ -211,6 +214,8 @@ class LazyVideo extends AppElement {
       await naturals(this.poster);
 
       this.style['opacity'] = '1';
+
+      this.fire('lazy-video-poster-loaded-changed', {value: true});
     }
     catch (error) {
       if (error === 'Element removed.') { return; }
