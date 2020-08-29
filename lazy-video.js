@@ -17,14 +17,16 @@
 import {
   AppElement, 
   html
-}                 from '@longlost/app-element/app-element.js';
+} from '@longlost/app-element/app-element.js';
+
 import {
   consumeEvent,
   isOnScreen,
   naturals, 
   schedule,
   wait
-}                 from '@longlost/utils/utils.js';
+} from '@longlost/utils/utils.js';
+
 import htmlString from './lazy-video.html';
 import '@longlost/app-spinner/app-spinner.js';
 
@@ -118,7 +120,7 @@ class LazyVideo extends AppElement {
 
 
   disconnectedCallback() {
-    super.connectedCallback();
+    super.disconnectedCallback();
 
     this.__unobserve();
   }
@@ -274,9 +276,12 @@ class LazyVideo extends AppElement {
     }
   }
 
-
+  // WARNING - DO NOT USE 'event.stopImmediatePropagation', 
+  //           'hijackEvent' OR 'consumeEvent' here as it 
+  //           will prevent Chrome from enabling certain
+  //           controls, such as mute and fullscreen buttons.
   __metadataLoaded(event) {
-    consumeEvent(event);
+    event.stopPropagation();
 
     this.fire('lazy-video-metadata-loaded', {src: this.src});
   }
