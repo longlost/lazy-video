@@ -1,6 +1,6 @@
 {
   "name": "@longlost/lazy-video",
-  "version": "2.4.0",
+  "version": "2.4.1",
   "description": "html5 video tag wrapper that auto lazy-loads based on viewport visibility",
   "main": "lazy-video.js",
   "scripts": {
