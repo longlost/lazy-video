@@ -75,22 +75,23 @@
 
 	<template is="dom-if" 
 						if="[[!presentation]]"
-						on-dom-change="__onDomChange">
+						on-dom-change="__domChangeHandler">
 		<video class$="[[sizing]]"
 					 controls
 					 playsinline
 					 poster="[[poster]]"
 					 preload="metadata" 
 					 src="[[_lazySrc]]"
-					 on-loadeddata="__firstFrameLoaded"
-					 on-loadedmetadata="__metadataLoaded">
+					 on-error="__errorHandler"
+					 on-loadeddata="__firstFrameLoadedHandler"
+					 on-loadedmetadata="__metadataLoadedHandler">
 			Your browser does not support the video tag.
 		</video>
 	</template>
 
 	<template is="dom-if" 
 						if="[[presentation]]"
-						on-dom-change="__onDomChange">
+						on-dom-change="__domChangeHandler">
 		<video class$="[[sizing]]"
 					 autoplay 
 					 loop
@@ -98,8 +99,9 @@
 					 playsinline
 					 poster="[[poster]]"
 					 src="[[_lazySrc]]"
-					 on-loadeddata="__firstFrameLoaded"
-					 on-loadedmetadata="__metadataLoaded">
+					 on-error="__errorHandler"
+					 on-loadeddata="__firstFrameLoadedHandler"
+					 on-loadedmetadata="__metadataLoadedHandler">
 			Your browser does not support the video tag.
 		</video>
 	</template>
