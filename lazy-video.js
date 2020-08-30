@@ -52,12 +52,22 @@ class LazyVideo extends AppElement {
       // Sets or removes HTML5 video 'controls' attribute.
       controls: Boolean,
 
+      error: Boolean,
+
+      firstFrameLoaded: Boolean,
+
+      metadataLoaded: Boolean,
+
       // Set this to a local blob url for fast initial loading.
       placeholder: String,
 
       // Placeholder image url. 
       // Optional.
-      poster: String, 
+      poster: String,
+
+      posterError: Boolean,
+
+      posterLoaded: Boolean,
 
       // When set to true, video will 
       // autoplay with no controls, 
@@ -112,9 +122,14 @@ class LazyVideo extends AppElement {
   static get observers() {
     return [
       '__controlsChanged(controls, _videoEl)',
-      '__presentationChanged(presentation)',
+      '__errorChanged(error)',
+      '__firstFrameLoadedChanged(firstFrameLoaded)',
+      '__metadataLoadedChanged(metadataLoaded)',
       '__placeholderSrcChanged(placeholder, src, trigger, _videoEl)',
-      '__posterChanged(poster, trigger, _videoEl)'
+      '__posterChanged(poster, trigger, _videoEl)',
+      '__posterErrorChanged(posterError)',
+      '__posterLoadedChanged(posterLoaded)',
+      '__presentationChanged(presentation)'
     ];
   }
 
@@ -140,8 +155,27 @@ class LazyVideo extends AppElement {
   }
 
 
+  __errorChanged(error) {
+    this.fire('lazy-video-error-changed', {value: error});
+  }
+
+
+  __firstFrameLoadedChanged(loaded) {
+    this.fire('lazy-video-first-frame-loaded-changed', {value: loaded});
+  }
+
+
+  __metadataLoadedChanged(loaded) {
+    this.fire('lazy-video-metadata-loaded-changed', {value: loaded});
+  }
+
+
   async __placeholderSrcChanged(placeholder, src, trigger, el) {
     try {
+
+      this.error            = false;
+      this.firstFrameLoaded = false;
+      this.metadataLoaded   = false;
 
       if ((!placeholder && !src) || !el) { 
         this._lazySrc = '#';
@@ -186,6 +220,8 @@ class LazyVideo extends AppElement {
     catch (error) {
       if (error === 'Element removed.') { return; }
       console.error(error);
+
+      this.error = true;
     }
   }
 
@@ -193,10 +229,11 @@ class LazyVideo extends AppElement {
   async __posterChanged(poster, trigger, el) {
     try {
 
-      if (!poster || !el) { 
-        this._lazyPoster = '#';
+      this.posterLoaded = false;
+      this.posterError  = false;
 
-        this.fire('lazy-video-poster-loaded-changed', {value: false});
+      if (!poster || !el) { 
+        this._lazyPoster  = '#';
 
         return; 
       }
@@ -215,14 +252,28 @@ class LazyVideo extends AppElement {
       // its image load timing.
       await naturals(this.poster);
 
-      this.style['opacity'] = '1';
-
-      this.fire('lazy-video-poster-loaded-changed', {value: true});
+      this.posterLoaded = true;
     }
     catch (error) {
       if (error === 'Element removed.') { return; }
+
       console.error(error);
+
+      this.posterError = true;
     }
+    finally {
+      this.style['opacity'] = '1';
+    }
+  }
+
+
+  __posterErrorChanged(error) {
+    this.fire('lazy-video-poster-error-changed', {value: error});
+  }
+
+
+  __posterLoadedChanged(loaded) {
+    this.fire('lazy-video-poster-loaded-changed', {value: loaded});
   }
 
 
@@ -233,8 +284,17 @@ class LazyVideo extends AppElement {
   }
 
 
-  __onDomChange() {
+  __domChangeHandler(event) {
+    consumeEvent(event);
+
     this._videoEl = this.select('video');
+  }
+
+
+  __errorHandler(event) {
+    consumeEvent(event);
+
+    this.error = true;
   }
 
 
@@ -263,10 +323,10 @@ class LazyVideo extends AppElement {
   }
 
 
-  async __firstFrameLoaded(event) {
+  async __firstFrameLoadedHandler(event) {
     consumeEvent(event);
 
-    this.fire('lazy-video-first-frame-loaded', {src: this.src});
+    this.firstFrameLoaded = true;
 
     await schedule();
     await this.$.spinner.hide();
@@ -280,10 +340,10 @@ class LazyVideo extends AppElement {
   //           'hijackEvent' OR 'consumeEvent' here as it 
   //           will prevent Chrome from enabling certain
   //           controls, such as mute and fullscreen buttons.
-  __metadataLoaded(event) {
+  __metadataLoadedHandler(event) {
     event.stopPropagation();
 
-    this.fire('lazy-video-metadata-loaded', {src: this.src});
+    this.metadataLoaded = true;
   }
 
 
