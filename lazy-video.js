@@ -14,10 +14,7 @@
   **/
 
 
-import {
-  AppElement, 
-  html
-} from '@longlost/app-core/app-element.js';
+import {AppElement} from '@longlost/app-core/app-element.js';
 
 import {
   consumeEvent,
@@ -27,15 +24,16 @@ import {
   wait
 } from '@longlost/app-core/utils.js';
 
-import htmlString from './lazy-video.html';
+import template from './lazy-video.html';
 import '@longlost/app-spinner/app-spinner.js';
 
 
 class LazyVideo extends AppElement {
+
   static get is() { return 'lazy-video'; }
 
   static get template() {
-    return html([htmlString]);
+    return template;
   }
 
 
@@ -135,6 +133,7 @@ class LazyVideo extends AppElement {
 
 
   disconnectedCallback() {
+
     super.disconnectedCallback();
 
     this.__unobserve();
@@ -156,21 +155,25 @@ class LazyVideo extends AppElement {
 
 
   __errorChanged(error) {
+
     this.fire('lazy-video-error-changed', {value: error});
   }
 
 
   __firstFrameLoadedChanged(loaded) {
+
     this.fire('lazy-video-first-frame-loaded-changed', {value: loaded});
   }
 
 
   __metadataLoadedChanged(loaded) {
+
     this.fire('lazy-video-metadata-loaded-changed', {value: loaded});
   }
 
 
   async __placeholderSrcChanged(placeholder, src, trigger, el) {
+
     try {
 
       this.error            = false;
@@ -227,6 +230,7 @@ class LazyVideo extends AppElement {
 
 
   async __posterChanged(poster, trigger, el) {
+
     try {
 
       this.posterLoaded = false;
@@ -268,16 +272,19 @@ class LazyVideo extends AppElement {
 
 
   __posterErrorChanged(error) {
+
     this.fire('lazy-video-poster-error-changed', {value: error});
   }
 
 
   __posterLoadedChanged(loaded) {
+
     this.fire('lazy-video-poster-loaded-changed', {value: loaded});
   }
 
 
   __presentationChanged(presentation) {
+
     if (!presentation) {
       this.__unobserve();
     }
@@ -285,6 +292,7 @@ class LazyVideo extends AppElement {
 
 
   __domChangeHandler(event) {
+
     consumeEvent(event);
 
     this._videoEl = this.select('video');
@@ -292,6 +300,7 @@ class LazyVideo extends AppElement {
 
 
   __errorHandler(event) {
+
     consumeEvent(event);
 
     this.error = true;
@@ -324,6 +333,7 @@ class LazyVideo extends AppElement {
 
 
   async __firstFrameLoadedHandler(event) {
+
     consumeEvent(event);
 
     this.firstFrameLoaded = true;
@@ -341,6 +351,7 @@ class LazyVideo extends AppElement {
   //           will prevent Chrome from enabling certain
   //           controls, such as mute and fullscreen buttons.
   __metadataLoadedHandler(event) {
+
     event.stopPropagation();
 
     this.metadataLoaded = true;
@@ -348,6 +359,7 @@ class LazyVideo extends AppElement {
 
 
   __unobserve() {
+    
     if (this._intersectionObserver) {
       this._intersectionObserver.unobserve(this);
     }
