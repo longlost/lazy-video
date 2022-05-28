@@ -17,16 +17,16 @@
   },
   "homepage": "https://github.com/longlost/lazy-video#readme",
   "dependencies": {
-    "@longlost/app-core": "^1.0.0",
-    "@longlost/app-spinner": "^1.2.1",
-    "@polymer/polymer": "^3.4.1"
+    "@longlost/app-core": "^9.0.1",
+    "@longlost/app-spinner": "^1.2.2",
+    "@polymer/polymer": "^3.5.0"
   },
   "devDependencies": {
     "@polymer/iron-demo-helpers": "^3.1.0",
     "@polymer/test-fixture": "^4.0.2",
-    "@webcomponents/webcomponentsjs": "^2.5.0",
-    "chai": "^4.2.0",
-    "mocha": "^8.2.1",
+    "@webcomponents/webcomponentsjs": "^2.6.0",
+    "chai": "^4.3.6",
+    "mocha": "^10.0.0",
     "wct-mocha": "^1.1.0"
   }
 }
