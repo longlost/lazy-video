@@ -25,6 +25,7 @@ import {
 } from '@longlost/app-core/utils.js';
 
 import template from './lazy-video.html';
+
 import '@longlost/app-spinner/app-spinner.js';
 
 
@@ -32,9 +33,7 @@ class LazyVideo extends AppElement {
 
   static get is() { return 'lazy-video'; }
 
-  static get template() {
-    return template;
-  }
+  static get template() { return template; }
 
 
   static get properties() {
@@ -181,7 +180,9 @@ class LazyVideo extends AppElement {
       this.metadataLoaded   = false;
 
       if ((!placeholder && !src) || !el) { 
+
         this._lazySrc = '#';
+
         return; 
       }
 
@@ -204,6 +205,7 @@ class LazyVideo extends AppElement {
       // above schedule and isOnScreen have resolved.
       
       if (this.placeholder && (!this.src || this.src === '#')) {
+
         this._lazySrc = this.placeholder;
       }
       else if (!this.poster && this.src !== '#') {  
@@ -217,12 +219,13 @@ class LazyVideo extends AppElement {
         this._lazySrc = `${this.src}#t=0.1`; // Safari Hack!!!  
       }
       else {
+
         this._lazySrc = this.src || '#';
       }
     }
     catch (error) {
+
       if (error === 'Element removed.') { return; }
-      console.error(error);
 
       this.error = true;
     }
@@ -237,6 +240,7 @@ class LazyVideo extends AppElement {
       this.posterError  = false;
 
       if (!poster || !el) { 
+
         this._lazyPoster  = '#';
 
         return; 
@@ -259,9 +263,8 @@ class LazyVideo extends AppElement {
       this.posterLoaded = true;
     }
     catch (error) {
-      if (error === 'Element removed.') { return; }
 
-      console.error(error);
+      if (error === 'Element removed.') { return; }
 
       this.posterError = true;
     }
@@ -316,6 +319,7 @@ class LazyVideo extends AppElement {
     };
 
     const callback = entries => {
+
       const {isIntersecting} = entries[0];
 
       if (isIntersecting) {
